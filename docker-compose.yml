@@ -4,12 +4,12 @@ services:
     movefiles:
         build:
             args:
-                CODE_VERSION: perl-carton:20180207
+                CODE_VERSION: perl-carton:20180210
             cache_from:
-                - perl-carton:20180207
+                - perl-carton:20180210
             context: .
         hostname: movefiles
-        image: movefiles:20180207
+        image: movefiles:20180210
         logging:
             driver: "json-file"
             options:
