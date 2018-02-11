@@ -12,7 +12,7 @@ services:
                 - alpine:3.6                 
             context: .
 #        depends_on:
-#            - perl-carton:20180210
+#            - carton
         hostname: movefiles
         image: movefiles:20180210
         logging:
