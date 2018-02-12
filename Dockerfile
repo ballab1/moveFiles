@@ -1,8 +1,9 @@
-ARG CODE_VERSION=perl-carton:20180210
-FROM $CODE_VERSION
+ARG FROM_BASE=perl-carton:20180210
+FROM $FROM_BASE
 
-ENV VERSION=1.0.0
-LABEL version=$VERSION
+# version of this docker image
+ARG CONTAINER_VERSION=1.0.0 
+LABEL version=$CONTAINER_VERSION  
 
 COPY moveFiles.pl /usr/src/myapp
 CMD ["perl", "moveFiles.pl"]
