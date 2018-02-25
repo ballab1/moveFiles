@@ -1,2 +1,5 @@
 # movefile Packages
-apk add --no-cache --virtual libxml2
+
+if [ "${CBF['os_id']}" = 'alpine' ]; then
+    apk add --no-cache --virtual libxml2
+fi
