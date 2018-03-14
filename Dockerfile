@@ -1,4 +1,4 @@
-ARG FROM_BASE=perl-carton:20180211
+ARG FROM_BASE=perl-carton:20180314
 FROM $FROM_BASE
 
 # name and version of this docker image
