@@ -6,7 +6,6 @@ services:
             args:
                 CONTAINER_NAME: movefiles 
                 CONTAINER_VERSION: 1.0.5
-                DEBUG_TRACE: 0
                 FROM_BASE: perl-carton:latest
             cache_from:
                 - perl-carton:latest
@@ -15,6 +14,8 @@ services:
                 - alpine:3.6                 
             context: .
             dockerfile: Dockerfile
+        environment:
+            DEBUG_TRACE: ${DEBUG_TRACE:-0}
         hostname: movefiles
         image: movefiles:latest
         logging:
