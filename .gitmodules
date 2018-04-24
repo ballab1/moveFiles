@@ -1,3 +1,0 @@
-[submodule "build/containenr_lib"]
-	path = build/container_build_framework
-    url = ../container_build_framework.git

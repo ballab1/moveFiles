@@ -9,7 +9,8 @@ LABEL org_name=$CONTAINER_NAME \
       version=$CONTAINER_VERSION 
 
 # set to non zero for the framework to show verbose action scripts
-ARG DEBUG_TRACE=0
+#    (0:default, 1:trace & do not cleanup; 2:continue after errors)
+ENV DEBUG_TRACE=0
 
 
 COPY moveFiles.pl /usr/src/myapp
