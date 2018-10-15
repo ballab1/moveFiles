@@ -5,16 +5,17 @@ services:
         build:
             args:
                 CONTAINER_NAME: movefiles
-                FROM_BASE: ${DOCKER_REGISTRY:-}${CONTAINER_OS:-}perl-carton/1.7044:${BASE_TAG:-latest}
+                FROM_BASE: ${DOCKER_REGISTRY:-}${CONTAINER_OS:-}perl-carton/${CPANIMUS_VERSION:-1.7044}:${BASE_TAG:-latest}
             cache_from:
                 - ${DOCKER_REGISTRY:-}${CONTAINER_OS:-}alpine:3.8
                 - ${DOCKER_REGISTRY:-}${CONTAINER_OS:-}base_container:${BASE_TAG:-latest}
                 - ${DOCKER_REGISTRY:-}${CONTAINER_OS:-}perl/${PERL_VERSION:-5.26.2}:${BASE_TAG:-latest}
-                - ${DOCKER_REGISTRY:-}${CONTAINER_OS:-}perl-carton/1.7044:${BASE_TAG:-latest}
+                - ${DOCKER_REGISTRY:-}${CONTAINER_OS:-}perl-carton/${CPANIMUS_VERSION:-1.7044}:${BASE_TAG:-latest}
             context: .
             dockerfile: Dockerfile
             labels:
                 container.build.time: $CONTAINER_BUILD_TIME
+                container.cbf.version: $CBF_VERSION
                 container.fingerprint: $CONTAINER_FINGERPRINT
                 container.git.refs: $CONTAINER_GIT_REFS
                 container.git.commit: $CONTAINER_GIT_COMMIT
