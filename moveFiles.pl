@@ -32,7 +32,7 @@ USAGE
 #
 ######################################################
 
-my (%dir, $path, $help, $scannedFiles, $movedFiles, $deletedFiles, $existingFiles);
+my (%dir, $base, $path, $help, $scannedFiles, $movedFiles, $deletedFiles, $existingFiles);
 
 $scannedFiles = 0;
 $movedFiles = 0;
@@ -50,8 +50,15 @@ if( $help || !defined $path )
     exit();
 }
 
-print "Scanning folder: $path\n";
 $path = $path.'/' unless ( $path =~ /.*\/$/ );
+$base = $path;
+$path = $base . 'Uploads';
+print "Scanning folder: $path\n";
+
+if ( ! -e $path ) {
+    print "Invalid folder specified.\n";
+    exit();
+}
 
 tie %dir, 'IO::Dir', $path, DIR_UNLINK;
 foreach my $file (keys %dir)  {
@@ -72,19 +79,22 @@ foreach my $file (keys %dir)  {
     my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = gmtime( $st->mtime );
     $year += 1900;
     $mon++;
-    my $targetDir = $path . sprintf('%04d-%02d/', $year, $mon);
+    my $targetDir = $base . sprintf('%04d-%02d/', $year, $mon);
 
     mkdir($targetDir) if ( not -d $targetDir );
 
     my $targetFile = $targetDir . $file;
     if ( -e $targetFile ) {
+        next if ( -l $dir{$file} );
         delete $dir{$file};
         $existingFiles++;
         $deletedFiles++;
-        next;
     }
-    rename $path . $file, $targetFile;
-    $movedFiles++;
+    else {
+        rename $path . $file, $targetFile;
+        $movedFiles++;
+    }
+    symlink($targetFile, $path . '/' . $file);
 }
 untie %dir;
 

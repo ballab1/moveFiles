@@ -26,7 +26,7 @@ services:
                 container.original.name: movefiles
                 container.parent: $CONTAINER_PARENT
                 version.cbf: $CBF_VERSION
-        container_name: moovefiles
+        container_name: movefiles
         environment:
             DEBUG_TRACE: ${DEBUG_TRACE:-0}
         hostname: movefiles
