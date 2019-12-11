@@ -60,6 +60,7 @@ if ( ! -e $path ) {
     exit();
 }
 
+chdir $path;
 tie %dir, 'IO::Dir', $path, DIR_UNLINK;
 foreach my $file (keys %dir)  {
 
@@ -79,7 +80,7 @@ foreach my $file (keys %dir)  {
     my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = gmtime( $st->mtime );
     $year += 1900;
     $mon++;
-    my $targetDir = $base . sprintf('%04d-%02d/', $year, $mon);
+    my $targetDir = sprintf('../%04d-%02d/', $year, $mon);
 
     mkdir($targetDir) if ( not -d $targetDir );
 
@@ -94,7 +95,7 @@ foreach my $file (keys %dir)  {
         rename $path . $file, $targetFile;
         $movedFiles++;
     }
-    symlink($targetFile, $path . '/' . $file);
+    symlink($targetFile, $file);
 }
 untie %dir;
 
